@@ -1,21 +1,22 @@
-var waterBottle = {
-     volume: 0,
-     fill: function(){
-          volume = 100;
-          return volume;
-     },
-     drink: function(){
-          volume -= 10;
-          if (volume < 0){
-               volume = 0;
-               console.log("The bottle is empty, you can't drink any more!")
+var bottle = require('./water_bottle');
+
+var athlete = {
+     hydration: 100,
+     distance: 0,
+     bottle: bottle,
+     run: function(){
+          if (this.hydration > 0){
+          this.hydration -= 10;
+          this.distance +=10;
+          }else {
+               this.hydration = 0;
+               console.log("Drink something now, you're dehydrated!")
           }
-          return volume;
      },
-     empty: function(){
-          volume = 0;
-          return volume;
+     drinkWater: function(){
+          this.bottle.drink();
+          this.hydration += 10;
      }
 }
 
-module.exports = waterBottle;
+module.exports = athlete;

@@ -1,37 +1,46 @@
+var athlete = require('../athlete');
 var bottle = require('../water_bottle');
 var assert = require('assert');
 
-describe('Water bottle', function(){
-     it("should be empty at start", function(){
-          assert.equal(0, bottle.volume);
+describe('Athlete', function(){
+     it("should start hydration at 100", function(){
+          assert.equal(100, athlete.hydration);
      })
 });
 
-describe('Water bottle', function(){
-     it("should go to 100 when full", function(){
-          assert.equal(100, bottle.fill());
+
+describe('Athlete', function(){
+     it("should start distance at 0", function(){
+          assert.equal(0, athlete.distance);
+     })
+
+});
+
+describe('Running', function(){
+     it("should increase distance by 10 and descrease hydration by 10", function(){
+          athlete.run();
+          assert.equal(90, athlete.hydration);
+          assert.equal(10, athlete.distance);
      })
 });
 
-describe('Water bottle', function(){
-     it("drink should decrease volume by 10", function(){
+describe('Athlete', function(){
+     it("should stop running when hydrations reaches 0", function(){
+          athlete.hydration = 0;
+          athlete.distance = 50;
+          athlete.run();
+          assert.equal(50, athlete.distance);
+          assert.equal(0, athlete.hydration);
+     })
+});
+
+describe('Athlete', function(){
+     it("should be able to drink from the bottle and increase hydration", function(){
           bottle.fill();
-          bottle.drink();
-          assert.equal(80, bottle.drink());
+          athlete.hydration = 100;
+          athlete.distance = 0;
+          athlete.run();
+          athlete.drinkWater();
+          assert.equal(100, athlete.hydration);
      })
 });
-
-describe('Water bottle', function(){
-     it("should go to 0 when empty", function(){
-          assert.equal(0, bottle.empty());
-     })
-});
-
-describe('Water bottle volume', function(){
-     it("should not go below 0", function(){
-          bottle.empty();
-          bottle.drink();
-          assert.equal(0, bottle.volume);
-     })
-});
-
